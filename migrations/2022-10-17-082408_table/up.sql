@@ -1,0 +1,41 @@
+-- Your SQL goes here
+CREATE TABLE sizes (
+    id SERIAL PRIMARY KEY,
+    value VARCHAR NOT NULL UNIQUE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE weights (
+    id SERIAL PRIMARY KEY,
+    value INTEGER NOT NULL UNIQUE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE factories (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR NOT NULL UNIQUE,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE products (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR NOT NULL,
+    name_mobile VARCHAR,
+    size_id integer,
+    weight_id integer,
+    factory_id integer,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_products_sizes FOREIGN KEY (size_id) REFERENCES sizes (id) ON DELETE
+    SET
+        NULL ON UPDATE CASCADE,
+        CONSTRAINT fk_products_weights FOREIGN KEY (weight_id) REFERENCES weights (id) ON DELETE
+    SET
+        NULL ON UPDATE CASCADE,
+        CONSTRAINT fk_products_factories FOREIGN KEY (factory_id) REFERENCES factories (id) ON DELETE
+    SET
+        NULL ON UPDATE CASCADE
+);
