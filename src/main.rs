@@ -54,6 +54,7 @@ fn main() {
 
     // actual problem :
 
+    // this is specified by the user
     let entry_col = products::name;
 
     let mut query = products::table
